@@ -1,0 +1,30 @@
+<app-header></app-header>
+<div>
+  <h2 [ngStyle]="{'color':room.available>150?'green':'red'}">Num of Rooms: {{numOfRooms}}</h2>
+  <h2>Num of Rooms PIPE: {{roomsCount$ |async}}</h2>
+  <div *ngIf="selectedRoom">
+    {{selectedRoom |json}}
+  </div>
+  <!--  <h2>{{getError$ |async}}</h2>-->
+  <!--  {{rooms$ |async|json}}-->
+
+  {{priceFilter | json}}
+  <div>
+    <input type="number" class="form-control" placeholder="Price" [formControl]="priceFilter"/>
+  </div>
+  <div *ngIf="rooms$ |async as rooms">
+    <div *ngIf="!hideRooms">
+      <!--    child--room-list--input传参-->
+      <app-room-list [rooms]="rooms"  [price]="priceFilter.value?priceFilter.value:0" [title]="title"
+                     (selectedRoom)="selectRoom($event)"></app-room-list>
+    </div>
+  </div>
+  <button (click)="toggle()">Toggle</button>
+  <button (click)="editRoom()">Edit</button>
+  <button (click)="deleteRoom()">Delete</button>
+</div>
+
+<router-outlet></router-outlet>
+<!--https://valor-software.com/ngx-bootstrap/#/components-->
+<!--ng add ngx-bootstrap-->
+<!--npm install ngx-bootstrap &#45;&#45;save-->

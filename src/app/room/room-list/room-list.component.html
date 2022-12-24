@@ -1,0 +1,42 @@
+<h2>{{title}}</h2>
+<!--  The HTML <td> element is found in an HTML table within the <body> tag.-->
+<!--The <td> tag defines the standard cells in the table which are displayed as normal-weight, left-aligned text.-->
+<!--  The <tr> tag defines the table rows. There must be at least one row in the table.-->
+<!--    The <th> tag defines the header cells in the table which are displayed as bold, center-aligned text.-->
+<table class="table">
+  <tr>
+    <th>Index</th>
+    <th>Even/Odd</th>
+    <th>Room Number</th>
+    <th>Room Type</th>
+    <th>Amenities</th>
+    <th>Price</th>
+    <!--      <th>Photos</th>-->
+    <th>Check-In</th>
+    <th>Check-Out</th>
+    <th>Rating</th>
+    <th>Select</th>
+  </tr>
+  <tr
+    [ngClass]="e?'even':'odd'"
+    *ngFor="let room of rooms | filter : price; let e=even;let o=odd;let i=index">
+    <td>{{i + 1}}</td>
+    <td>{{e ? "Odd" : "Even"}}</td>
+    <td>{{room.roomNumber}}</td>
+    <td>{{room.roomType}}</td>
+    <td>{{room.amenities |titlecase}}</td>
+    <td>{{room.price|currency:'CAD'}}</td>
+    <td>{{room.checkinTime | date:'dd/MMM/yyyy'}}</td>
+    <td>{{room.checkoutTime | date}}</td>
+    <td>{{room.rating|number:'1.1-2'}}</td>
+    <td>
+      <button
+        class="btn btn-primary"
+        [routerLink]="['/booking',room.roomNumber]"
+      >
+        Book
+      </button>
+    </td>
+
+  </tr>
+</table>
